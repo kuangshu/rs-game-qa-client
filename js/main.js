@@ -13,12 +13,31 @@ export default class Main {
 
     let openDataContext = wx.getOpenDataContext();
     let sharedCanvas = openDataContext.canvas;
-    sharedCanvas.width = screenWidth * ratio;
-    sharedCanvas.height = screenHeight * ratio;
+    sharedCanvas.width = screenWidth * pixelRatio;
+    sharedCanvas.height = screenHeight * pixelRatio;
     DataStore.getInstance().sharedCanvas = sharedCanvas;
 
+    this.login();
     this.initGame();
   }
 
+  login() {
+    wx.login({
+      success: function(code) {
+        console.log(code);
+        // wx.request({ url });
+      },
+      fail: function() {},
+      complete: function() {},
+    });
+    wx.getUserInfo({
+      withCredentials: true,
+      success: function(data) {
+        console.log(data);
+      },
+      fail: function() {},
+      complete: function() {},
+    });
+  }
   initGame() {}
 }
